@@ -39,8 +39,8 @@
             <td>
                 @Html.DisplayFor(modelItem => item.biografia)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.foto)
+            <td>                                                                
+                <img src="~/images/@item.foto" class="img-thumbnail" asp-append-version="true" style="height: 80px"/>                    
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |

@@ -7,9 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Practica1.Models
 {
     public class Autor
-    {
-        [Display(Name = "Id")]
-     
+    {     
         public int ID { get; set; }
 
         [Display(Name = "Apellido")]
@@ -24,9 +22,9 @@ namespace Practica1.Models
         [Required(ErrorMessage = "La Biografia es obligatorio")]
         public string biografia { get; set; }
         
-        [Display(Name = "Foto")]
-        [Required(ErrorMessage = "El Nombre es obligatorio")]
+
         public string foto { get; set; }
+
 
     }
 }

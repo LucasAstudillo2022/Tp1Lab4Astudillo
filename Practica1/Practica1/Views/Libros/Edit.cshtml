@@ -32,6 +32,11 @@
                 <label asp-for="fotoportada" class="control-label"></label>
                 <input asp-for="fotoportada" class="form-control" />
                 <span asp-validation-for="fotoportada" class="text-danger"></span>
+                @if (string.IsNullOrEmpty(@Model.fotoportada))
+                {
+                    //verificar cuando se cree la carpeta imagen el root
+                    <img src="~/image/autor/@Model.fotoportada" class="img-thumbnail" asp-append-version="true" />
+                }
             </div>
             <div class="form-group">
                 <label asp-for="generoId" class="control-label"></label>

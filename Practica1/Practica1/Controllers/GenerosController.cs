@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,10 +14,12 @@ namespace Practica1.Controllers
     public class GenerosController : Controller
     {
         private readonly appDBcontext _context;
+        
 
         public GenerosController(appDBcontext context)
         {
             _context = context;
+            
         }
 
         // GET: Generos
@@ -57,11 +61,18 @@ namespace Practica1.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(genero);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+               
+
+
+                {
+                    _context.Add(genero);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
-            return View(genero);
+                return View(genero);
+            
         }
 
         // GET: Generos/Edit/5

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +15,12 @@ namespace Practica1.Controllers
     public class LibrosController : Controller
     {
         private readonly appDBcontext _context;
+        private readonly IWebHostEnvironment env;
 
-        public LibrosController(appDBcontext context)
+        public LibrosController(appDBcontext context, IWebHostEnvironment env)
         {
             _context = context;
+            this.env = env;
         }
 
         // GET: Libros
@@ -63,6 +67,24 @@ namespace Practica1.Controllers
         {
             if (ModelState.IsValid)
             {
+                var archivos = HttpContext.Request.Form.Files;
+                if (archivos != null && archivos.Count > 0)
+                {
+                    var archivofoto = archivos[0];
+
+                    if (archivofoto.Length > 0)
+                    {
+                        var pathDestino = Path.Combine(env.WebRootPath, "images/portada");
+                        var archivoDestino = Guid.NewGuid().ToString().Replace("-", "") + Path.GetExtension(archivofoto.FileName);
+                        var rutaDestino = Path.Combine(pathDestino, archivoDestino);
+
+                        using (var filestream = new FileStream(rutaDestino, FileMode.Create))
+                        {
+                            archivofoto.CopyTo(filestream);
+                            libro.fotoportada = archivoDestino;
+                        }
+                    }
+                }
                 _context.Add(libro);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -104,6 +126,31 @@ namespace Practica1.Controllers
 
             if (ModelState.IsValid)
             {
+                var archivos = HttpContext.Request.Form.Files;
+                if (archivos != null && archivos.Count > 0)
+                {
+                    var archivofoto = archivos[0];
+
+                    if (archivofoto.Length > 0)
+                    {
+                        var pathDestino = Path.Combine(env.WebRootPath, "images/portada");
+                        var archivoDestino = Guid.NewGuid().ToString().Replace("-", "") + Path.GetExtension(archivofoto.FileName);
+                        var rutaDestino = Path.Combine(pathDestino, archivoDestino);
+                        string fotoAnterior = Path.Combine(pathDestino, libro.fotoportada);
+                        if (string.IsNullOrEmpty(libro.fotoportada))
+                        {
+                            if (System.IO.File.Exists(fotoAnterior))
+                                System.IO.File.Delete(fotoAnterior);
+                        }
+
+                        using (var filestream = new FileStream(rutaDestino, FileMode.Create))
+                        {
+                            archivofoto.CopyTo(filestream);
+                            libro.fotoportada = archivoDestino;
+                        }
+                    }
+                }
+
                 try
                 {
                     _context.Update(libro);
@@ -122,9 +169,11 @@ namespace Practica1.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["autorId"] = new SelectList(_context.autores, "ID", "apellido", libro.autorId);
-            ViewData["generoId"] = new SelectList(_context.generos, "id", "id", libro.generoId);
-            return View(libro);
+                ViewData["autorId"] = new SelectList(_context.autores, "ID", "apellido", libro.autorId);
+                ViewData["generoId"] = new SelectList(_context.generos, "id", "id", libro.generoId);
+                return View(libro);
+            
+        
         }
 
         // GET: Libros/Delete/5

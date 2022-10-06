@@ -8949,11 +8949,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Lucas Astudillo\\Desktop\\lab\\Lab4\\Practica1\\Practica1\\Practica1.csproj",
+      "projectUniqueName": "C:\\Users\\Lucas Astudillo\\Desktop\\Tp1Lucas\\Tp1Lab4Astudillo\\Practica1\\Practica1\\Practica1.csproj",
       "projectName": "Practica1",
-      "projectPath": "C:\\Users\\Lucas Astudillo\\Desktop\\lab\\Lab4\\Practica1\\Practica1\\Practica1.csproj",
+      "projectPath": "C:\\Users\\Lucas Astudillo\\Desktop\\Tp1Lucas\\Tp1Lab4Astudillo\\Practica1\\Practica1\\Practica1.csproj",
       "packagesPath": "C:\\Users\\Lucas Astudillo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Lucas Astudillo\\Desktop\\lab\\Lab4\\Practica1\\Practica1\\obj\\",
+      "outputPath": "C:\\Users\\Lucas Astudillo\\Desktop\\Tp1Lucas\\Tp1Lab4Astudillo\\Practica1\\Practica1\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Lucas Astudillo\\AppData\\Roaming\\NuGet\\NuGet.Config",
